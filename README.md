@@ -2,10 +2,6 @@
 
 This repository is an AMD ROCm/MIGraphX optimization fork of the Lightweight OpenPose-style human pose estimation pipeline. The repository was inherited from the earlier AMD port. What was added in this fork, how the code is organized, and how the main validation and stream-simulation entrypoints are run.
 
-<video width="100%" controls>
-    https://github.com/user-attachments/assets/ab418ebd-e95e-43d9-a351-45a17ea7a1de
-</video>
-
 The important context is that the fork point was not the original PyTorch-only Lightweight Human Pose Estimation repository directly, but the AMD-oriented fork at `cane122/lightweight-human-pose-estimation.pytorch-AMD`. That fork had already moved the model toward AMD GPU execution through ROCm/MIGraphX. The work in this repository starts from that point and focuses on the next bottleneck: after neural-network inference became fast enough, the limiting factor moved into postprocessing, data movement, CPU/GPU scheduling, batching, and live multi-camera stream behavior.
 
 The final recommended runtime path in this repository is the split pipeline:
@@ -22,6 +18,12 @@ In code and command-line usage, that path is exposed primarily as:
 ```
 
 The best confirmed 10-camera stream configuration uses a B2 split pose-adapter MXR model, a 2 ms batching timeout, two postprocess workers, shared-memory handoff, soft backpressure, and CPU pinning. Under that setup, the stream simulation processed 9,982 frames over 131.48 seconds, reaching 75.92 aggregate output FPS, 88.46 ms average end-to-end latency, and 109.42 ms P95 end-to-end latency. This result should be read as a live-monitoring stream result with latest-frame semantics, not as a claim that every source frame from 10 x 24 FPS cameras is fully emitted.
+
+---
+
+## Demo
+
+https://github.com/user-attachments/assets/ab418ebd-e95e-43d9-a351-45a17ea7a1de
 
 ---
 
