@@ -12,7 +12,7 @@ The result is a scalable AMD-accelerated computer vision solution capable of acc
 
 ## Demo
 
-https://github.com/user-attachments/assets/ab418ebd-e95e-43d9-a351-45a17ea7a1de
+https://github.com/user-attachments/assets/cbcce3bf-a54b-4964-b8b5-bb3a38a41417
 
 ---
 
